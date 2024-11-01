@@ -1,0 +1,118 @@
+{
+  "meta": {
+    "$_POST": [
+      {
+        "type": "number",
+        "name": "times"
+      },
+      {
+        "type": "number",
+        "name": "membro"
+      },
+      {
+        "type": "number",
+        "name": "empresa"
+      },
+      {
+        "type": "number",
+        "name": "usuariocriadopor"
+      }
+    ]
+  },
+  "exec": {
+    "steps": {
+      "name": "insertMembroTime",
+      "module": "dbupdater",
+      "action": "insert",
+      "options": {
+        "connection": "db",
+        "sql": {
+          "type": "insert",
+          "values": [
+            {
+              "table": "membros",
+              "column": "times",
+              "type": "number",
+              "value": "{{$_POST.times}}"
+            },
+            {
+              "table": "membros",
+              "column": "membro",
+              "type": "number",
+              "value": "{{$_POST.membro}}"
+            },
+            {
+              "table": "membros",
+              "column": "empresa",
+              "type": "number",
+              "value": "{{$_POST.empresa}}"
+            },
+            {
+              "table": "membros",
+              "column": "ativo",
+              "type": "number",
+              "value": "1"
+            },
+            {
+              "table": "membros",
+              "column": "criado-em",
+              "type": "datetime",
+              "value": "{{NOW_UTC}}"
+            },
+            {
+              "table": "membros",
+              "column": "criado-por",
+              "type": "number",
+              "value": "{{$_POST.usuariocriadopor}}"
+            }
+          ],
+          "table": "membros",
+          "returning": "id",
+          "query": "insert into \"membros\" (\"ativo\", \"criado-em\", \"criado-por\", \"empresa\", \"membro\", \"times\") values (?, ?, ?, ?, ?, ?) returning \"id\"",
+          "params": [
+            {
+              "name": ":P1",
+              "type": "expression",
+              "value": "{{$_POST.times}}",
+              "test": ""
+            },
+            {
+              "name": ":P2",
+              "type": "expression",
+              "value": "{{$_POST.membro}}",
+              "test": ""
+            },
+            {
+              "name": ":P3",
+              "type": "expression",
+              "value": "{{$_POST.empresa}}",
+              "test": ""
+            },
+            {
+              "name": ":P4",
+              "type": "expression",
+              "value": "{{NOW_UTC}}",
+              "test": ""
+            },
+            {
+              "name": ":P5",
+              "type": "expression",
+              "value": "{{$_POST.usuariocriadopor}}",
+              "test": ""
+            }
+          ]
+        }
+      },
+      "meta": [
+        {
+          "name": "identity",
+          "type": "text"
+        },
+        {
+          "name": "affected",
+          "type": "number"
+        }
+      ]
+    }
+  }
+}

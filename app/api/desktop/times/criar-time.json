@@ -1,0 +1,102 @@
+{
+  "meta": {
+    "$_POST": [
+      {
+        "type": "text",
+        "name": "nometime"
+      },
+      {
+        "type": "number",
+        "name": "empresa"
+      },
+      {
+        "type": "number",
+        "name": "timecriadopor"
+      }
+    ]
+  },
+  "exec": {
+    "steps": {
+      "name": "insertTime",
+      "module": "dbupdater",
+      "action": "insert",
+      "options": {
+        "connection": "db",
+        "sql": {
+          "type": "insert",
+          "values": [
+            {
+              "table": "times",
+              "column": "nome",
+              "type": "text",
+              "value": "{{$_POST.nometime}}"
+            },
+            {
+              "table": "times",
+              "column": "empresa",
+              "type": "number",
+              "value": "{{$_POST.empresa}}"
+            },
+            {
+              "table": "times",
+              "column": "ativo",
+              "type": "number",
+              "value": "1"
+            },
+            {
+              "table": "times",
+              "column": "criado-em",
+              "type": "datetime",
+              "value": "{{NOW_UTC}}"
+            },
+            {
+              "table": "times",
+              "column": "criado-por",
+              "type": "number",
+              "value": "{{$_POST.timecriadopor}}"
+            }
+          ],
+          "table": "times",
+          "returning": "id",
+          "query": "insert into \"times\" (\"ativo\", \"criado-em\", \"criado-por\", \"empresa\", \"nome\") values (?, ?, ?, ?, ?) returning \"id\"",
+          "params": [
+            {
+              "name": ":P1",
+              "type": "expression",
+              "value": "{{$_POST.nometime}}",
+              "test": ""
+            },
+            {
+              "name": ":P2",
+              "type": "expression",
+              "value": "{{$_POST.empresa}}",
+              "test": ""
+            },
+            {
+              "name": ":P3",
+              "type": "expression",
+              "value": "{{NOW_UTC}}",
+              "test": ""
+            },
+            {
+              "name": ":P4",
+              "type": "expression",
+              "value": "{{$_POST.timecriadopor}}",
+              "test": ""
+            }
+          ]
+        }
+      },
+      "meta": [
+        {
+          "name": "identity",
+          "type": "text"
+        },
+        {
+          "name": "affected",
+          "type": "number"
+        }
+      ]
+    }
+  }
+}

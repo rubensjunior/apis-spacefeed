@@ -1,0 +1,287 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "number",
+        "name": "id"
+      },
+      {
+        "type": "text",
+        "name": "sort"
+      },
+      {
+        "type": "text",
+        "name": "dir"
+      }
+    ]
+  },
+  "exec": {
+    "steps": {
+      "name": "queryUsuario",
+      "module": "dbconnector",
+      "action": "select",
+      "options": {
+        "connection": "db",
+        "sql": {
+          "type": "select",
+          "columns": [
+            {
+              "table": "usuarios",
+              "column": "id"
+            },
+            {
+              "table": "usuarios",
+              "column": "nome"
+            },
+            {
+              "table": "usuarios",
+              "column": "email"
+            },
+            {
+              "table": "usuarios",
+              "column": "isAdmin"
+            },
+            {
+              "table": "usuarios",
+              "column": "isColaborador"
+            },
+            {
+              "table": "usuarios",
+              "column": "empresa"
+            },
+            {
+              "table": "usuarios",
+              "column": "isAtivo"
+            },
+            {
+              "table": "usuarios",
+              "column": "passSecurity"
+            },
+            {
+              "table": "usuarios",
+              "column": "academico"
+            },
+            {
+              "table": "usuarios",
+              "column": "administrativo"
+            },
+            {
+              "table": "usuarios",
+              "column": "comercial"
+            },
+            {
+              "table": "usuarios",
+              "column": "diretoria"
+            },
+            {
+              "table": "usuarios",
+              "column": "financeiro"
+            },
+            {
+              "table": "usuarios",
+              "column": "marketing"
+            },
+            {
+              "table": "usuarios",
+              "column": "atendimento"
+            },
+            {
+              "table": "usuarios",
+              "column": "ti"
+            },
+            {
+              "table": "usuarios",
+              "column": "criado-em"
+            },
+            {
+              "table": "usuarios",
+              "column": "criado-por"
+            },
+            {
+              "table": "empresa",
+              "column": "nomeFantasia"
+            },
+            {
+              "table": "empresa",
+              "column": "isAtivo"
+            },
+            {
+              "table": "empresa",
+              "column": "endereco"
+            },
+            {
+              "table": "empresa",
+              "column": "cep"
+            },
+            {
+              "table": "empresa",
+              "column": "cnpj"
+            },
+            {
+              "table": "empresa",
+              "column": "nomeFantasia"
+            }
+          ],
+          "params": [
+            {
+              "operator": "equal",
+              "type": "expression",
+              "name": ":P1",
+              "value": "{{$_GET.id}}",
+              "test": ""
+            }
+          ],
+          "table": {
+            "name": "usuarios"
+          },
+          "primary": "id",
+          "joins": [
+            {
+              "table": "empresa",
+              "column": "*",
+              "type": "INNER",
+              "clauses": {
+                "condition": "AND",
+                "rules": [
+                  {
+                    "table": "empresa",
+                    "column": "id",
+                    "operation": "=",
+                    "operator": "equal",
+                    "value": {
+                      "table": "usuarios",
+                      "column": "empresa",
+                      "type": "number"
+                    }
+                  }
+                ]
+              },
+              "primary": "id"
+            }
+          ],
+          "query": "select \"usuarios\".\"id\", \"usuarios\".\"nome\", \"usuarios\".\"email\", \"usuarios\".\"isAdmin\", \"usuarios\".\"isColaborador\", \"usuarios\".\"empresa\", \"usuarios\".\"isAtivo\", \"usuarios\".\"passSecurity\", \"usuarios\".\"academico\", \"usuarios\".\"administrativo\", \"usuarios\".\"comercial\", \"usuarios\".\"diretoria\", \"usuarios\".\"financeiro\", \"usuarios\".\"marketing\", \"usuarios\".\"atendimento\", \"usuarios\".\"ti\", \"usuarios\".\"criado-em\", \"usuarios\".\"criado-por\", \"empresa\".\"nomeFantasia\", \"empresa\".\"isAtivo\", \"empresa\".\"endereco\", \"empresa\".\"cep\", \"empresa\".\"cnpj\", \"empresa\".\"nomeFantasia\" from \"usuarios\" inner join \"empresa\" on \"empresa\".\"id\" = \"usuarios\".\"empresa\" where \"usuarios\".\"id\" = ?",
+          "wheres": {
+            "condition": "AND",
+            "rules": [
+              {
+                "id": "usuarios.id",
+                "field": "usuarios.id",
+                "type": "double",
+                "operator": "equal",
+                "value": "{{$_GET.id}}",
+                "data": {
+                  "table": "usuarios",
+                  "column": "id",
+                  "type": "number",
+                  "columnObj": {
+                    "type": "increments",
+                    "default": "",
+                    "primary": true,
+                    "unique": true,
+                    "nullable": false,
+                    "name": "id"
+                  }
+                },
+                "operation": "="
+              }
+            ],
+            "conditional": null,
+            "valid": true
+          }
+        }
+      },
+      "output": true,
+      "meta": [
+        {
+          "type": "number",
+          "name": "id"
+        },
+        {
+          "type": "text",
+          "name": "nome"
+        },
+        {
+          "type": "text",
+          "name": "email"
+        },
+        {
+          "type": "number",
+          "name": "isAdmin"
+        },
+        {
+          "type": "number",
+          "name": "isColaborador"
+        },
+        {
+          "type": "number",
+          "name": "empresa"
+        },
+        {
+          "type": "number",
+          "name": "isAtivo"
+        },
+        {
+          "type": "text",
+          "name": "passSecurity"
+        },
+        {
+          "type": "number",
+          "name": "academico"
+        },
+        {
+          "type": "number",
+          "name": "administrativo"
+        },
+        {
+          "type": "number",
+          "name": "comercial"
+        },
+        {
+          "type": "number",
+          "name": "diretoria"
+        },
+        {
+          "type": "number",
+          "name": "financeiro"
+        },
+        {
+          "type": "number",
+          "name": "marketing"
+        },
+        {
+          "type": "number",
+          "name": "atendimento"
+        },
+        {
+          "type": "number",
+          "name": "ti"
+        },
+        {
+          "type": "datetime",
+          "name": "criado-em"
+        },
+        {
+          "type": "number",
+          "name": "criado-por"
+        },
+        {
+          "type": "text",
+          "name": "nomeFantasia"
+        },
+        {
+          "type": "text",
+          "name": "endereco"
+        },
+        {
+          "type": "text",
+          "name": "cep"
+        },
+        {
+          "type": "text",
+          "name": "cnpj"
+        }
+      ],
+      "outputType": "array"
+    }
+  }
+}

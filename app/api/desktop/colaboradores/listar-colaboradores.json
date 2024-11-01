@@ -1,0 +1,243 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "number",
+        "name": "empresa"
+      },
+      {
+        "type": "text",
+        "name": "sort"
+      },
+      {
+        "type": "text",
+        "name": "dir"
+      }
+    ]
+  },
+  "exec": {
+    "steps": {
+      "name": "queryListarColaboradores",
+      "module": "dbconnector",
+      "action": "select",
+      "options": {
+        "connection": "db",
+        "sql": {
+          "type": "select",
+          "columns": [
+            {
+              "table": "usuarios",
+              "column": "id"
+            },
+            {
+              "table": "usuarios",
+              "column": "nome"
+            },
+            {
+              "table": "usuarios",
+              "column": "email"
+            },
+            {
+              "table": "usuarios",
+              "column": "isAdmin"
+            },
+            {
+              "table": "usuarios",
+              "column": "isColaborador"
+            },
+            {
+              "table": "usuarios",
+              "column": "empresa"
+            },
+            {
+              "table": "usuarios",
+              "column": "isAtivo"
+            },
+            {
+              "table": "usuarios",
+              "column": "passSecurity"
+            },
+            {
+              "table": "usuarios",
+              "column": "academico"
+            },
+            {
+              "table": "usuarios",
+              "column": "administrativo"
+            },
+            {
+              "table": "usuarios",
+              "column": "comercial"
+            },
+            {
+              "table": "usuarios",
+              "column": "diretoria"
+            },
+            {
+              "table": "usuarios",
+              "column": "financeiro"
+            },
+            {
+              "table": "usuarios",
+              "column": "marketing"
+            },
+            {
+              "table": "usuarios",
+              "column": "atendimento"
+            },
+            {
+              "table": "usuarios",
+              "column": "ti"
+            },
+            {
+              "table": "usuarios",
+              "column": "criado-em"
+            },
+            {
+              "table": "usuarios",
+              "column": "criado-por"
+            }
+          ],
+          "params": [
+            {
+              "operator": "equal",
+              "type": "expression",
+              "name": ":P1",
+              "value": "{{$_GET.empresa}}",
+              "test": ""
+            }
+          ],
+          "table": {
+            "name": "usuarios"
+          },
+          "primary": "id",
+          "joins": [],
+          "wheres": {
+            "condition": "AND",
+            "rules": [
+              {
+                "id": "usuarios.empresa",
+                "field": "usuarios.empresa",
+                "type": "double",
+                "operator": "equal",
+                "value": "{{$_GET.empresa}}",
+                "data": {
+                  "table": "usuarios",
+                  "column": "empresa",
+                  "type": "number",
+                  "columnObj": {
+                    "type": "reference",
+                    "primary": false,
+                    "unique": false,
+                    "nullable": true,
+                    "references": "id",
+                    "inTable": "empresa",
+                    "referenceType": "integer",
+                    "onUpdate": "CASCADE",
+                    "onDelete": "CASCADE",
+                    "name": "empresa"
+                  }
+                },
+                "operation": "=",
+                "table": "usuarios"
+              }
+            ],
+            "conditional": null,
+            "valid": true
+          },
+          "query": "select \"id\", \"nome\", \"email\", \"isAdmin\", \"isColaborador\", \"empresa\", \"isAtivo\", \"passSecurity\", \"academico\", \"administrativo\", \"comercial\", \"diretoria\", \"financeiro\", \"marketing\", \"atendimento\", \"ti\", \"criado-em\", \"criado-por\" from \"usuarios\" where \"usuarios\".\"empresa\" = ? order by \"id\" ASC, \"nome\" ASC",
+          "orders": [
+            {
+              "table": "usuarios",
+              "column": "id",
+              "direction": "ASC",
+              "recid": 1
+            },
+            {
+              "table": "usuarios",
+              "column": "nome",
+              "direction": "ASC",
+              "recid": 2
+            }
+          ]
+        }
+      },
+      "output": true,
+      "meta": [
+        {
+          "type": "number",
+          "name": "id"
+        },
+        {
+          "type": "text",
+          "name": "nome"
+        },
+        {
+          "type": "text",
+          "name": "email"
+        },
+        {
+          "type": "number",
+          "name": "isAdmin"
+        },
+        {
+          "type": "number",
+          "name": "isColaborador"
+        },
+        {
+          "type": "number",
+          "name": "empresa"
+        },
+        {
+          "type": "number",
+          "name": "isAtivo"
+        },
+        {
+          "type": "text",
+          "name": "passSecurity"
+        },
+        {
+          "type": "number",
+          "name": "academico"
+        },
+        {
+          "type": "number",
+          "name": "administrativo"
+        },
+        {
+          "type": "number",
+          "name": "comercial"
+        },
+        {
+          "type": "number",
+          "name": "diretoria"
+        },
+        {
+          "type": "number",
+          "name": "financeiro"
+        },
+        {
+          "type": "number",
+          "name": "marketing"
+        },
+        {
+          "type": "number",
+          "name": "atendimento"
+        },
+        {
+          "type": "number",
+          "name": "ti"
+        },
+        {
+          "type": "datetime",
+          "name": "criado-em"
+        },
+        {
+          "type": "number",
+          "name": "criado-por"
+        }
+      ],
+      "outputType": "array"
+    }
+  }
+}

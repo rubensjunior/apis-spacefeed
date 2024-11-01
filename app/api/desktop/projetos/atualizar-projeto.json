@@ -1,0 +1,141 @@
+{
+  "meta": {
+    "$_POST": [
+      {
+        "type": "number",
+        "name": "edittimes"
+      },
+      {
+        "type": "number",
+        "name": "editresponsavel"
+      },
+      {
+        "type": "number",
+        "name": "ativo"
+      },
+      {
+        "type": "number",
+        "name": "editid"
+      },
+      {
+        "type": "text",
+        "name": "editdescricao"
+      },
+      {
+        "type": "text",
+        "name": "editnomeprojeto"
+      }
+    ]
+  },
+  "exec": {
+    "steps": {
+      "name": "updateProjeto",
+      "module": "dbupdater",
+      "action": "update",
+      "options": {
+        "connection": "db",
+        "sql": {
+          "type": "update",
+          "values": [
+            {
+              "table": "projetos",
+              "column": "nome-projeto",
+              "type": "text",
+              "value": "{{$_POST.editnomeprojeto}}"
+            },
+            {
+              "table": "projetos",
+              "column": "descricao-projeto",
+              "type": "text",
+              "value": "{{$_POST.editdescricao}}"
+            },
+            {
+              "table": "projetos",
+              "column": "times",
+              "type": "number",
+              "value": "{{$_POST.edittimes}}"
+            },
+            {
+              "table": "projetos",
+              "column": "responsavel",
+              "type": "number",
+              "value": "{{$_POST.editresponsavel}}"
+            },
+            {
+              "table": "projetos",
+              "column": "ativo",
+              "type": "number",
+              "value": "{{$_POST.ativo}}"
+            }
+          ],
+          "table": "projetos",
+          "wheres": {
+            "condition": "AND",
+            "rules": [
+              {
+                "id": "id",
+                "field": "id",
+                "type": "double",
+                "operator": "equal",
+                "value": "{{$_POST.editid}}",
+                "data": {
+                  "column": "id"
+                },
+                "operation": "="
+              }
+            ],
+            "conditional": null,
+            "valid": true
+          },
+          "returning": "id",
+          "query": "update \"projetos\" set \"nome-projeto\" = ?, \"descricao-projeto\" = ?, \"times\" = ?, \"responsavel\" = ?, \"ativo\" = ? where \"id\" = ? returning \"id\"",
+          "params": [
+            {
+              "name": ":P1",
+              "type": "expression",
+              "value": "{{$_POST.editnomeprojeto}}",
+              "test": ""
+            },
+            {
+              "name": ":P2",
+              "type": "expression",
+              "value": "{{$_POST.editdescricao}}",
+              "test": ""
+            },
+            {
+              "name": ":P3",
+              "type": "expression",
+              "value": "{{$_POST.edittimes}}",
+              "test": ""
+            },
+            {
+              "name": ":P4",
+              "type": "expression",
+              "value": "{{$_POST.editresponsavel}}",
+              "test": ""
+            },
+            {
+              "name": ":P5",
+              "type": "expression",
+              "value": "{{$_POST.ativo}}",
+              "test": ""
+            },
+            {
+              "operator": "equal",
+              "type": "expression",
+              "name": ":P6",
+              "value": "{{$_POST.editid}}",
+              "test": ""
+            }
+          ]
+        }
+      },
+      "meta": [
+        {
+          "name": "affected",
+          "type": "number"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "debug": true,
+  "secret": "tjLglzUv3KVNblv",
+  "cors": {
+    "origin": [
+      "capacitor://",
+      "capacitor://localhost",
+      "http://localhost",
+      "http://localhost:8100*",
+      "http://localhost:*",
+      "capacitor-electron://-",
+      "capacitor-electron://localhost",
+      "*"
+    ],
+    "methods": "GET,POST,PUT,PATCH,HEAD,CONNECT,OPTIONS,DELETE",
+    "allowedHeaders": "accept,authorization,content-type,origin,referer"
+  }
+}

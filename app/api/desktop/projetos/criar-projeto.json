@@ -1,0 +1,150 @@
+{
+  "meta": {
+    "$_POST": [
+      {
+        "type": "number",
+        "name": "times"
+      },
+      {
+        "type": "number",
+        "name": "empresa"
+      },
+      {
+        "type": "number",
+        "name": "responsavel"
+      },
+      {
+        "type": "text",
+        "name": "nomeprojeto"
+      },
+      {
+        "type": "text",
+        "name": "descricaoprojeto"
+      },
+      {
+        "type": "number",
+        "name": "criadopor"
+      }
+    ]
+  },
+  "exec": {
+    "steps": {
+      "name": "insertProjeto",
+      "module": "dbupdater",
+      "action": "insert",
+      "options": {
+        "connection": "db",
+        "sql": {
+          "type": "insert",
+          "values": [
+            {
+              "table": "projetos",
+              "column": "nome-projeto",
+              "type": "text",
+              "value": "{{$_POST.nomeprojeto}}"
+            },
+            {
+              "table": "projetos",
+              "column": "descricao-projeto",
+              "type": "text",
+              "value": "{{$_POST.descricaoprojeto}}"
+            },
+            {
+              "table": "projetos",
+              "column": "times",
+              "type": "number",
+              "value": "{{$_POST.times}}"
+            },
+            {
+              "table": "projetos",
+              "column": "empresa",
+              "type": "number",
+              "value": "{{$_POST.empresa}}"
+            },
+            {
+              "table": "projetos",
+              "column": "responsavel",
+              "type": "number",
+              "value": "{{$_POST.responsavel}}"
+            },
+            {
+              "table": "projetos",
+              "column": "criado-em",
+              "type": "datetime",
+              "value": "{{NOW_UTC}}"
+            },
+            {
+              "table": "projetos",
+              "column": "criado-por",
+              "type": "number",
+              "value": "{{$_POST.criadopor}}"
+            },
+            {
+              "table": "projetos",
+              "column": "ativo",
+              "type": "number",
+              "value": "1"
+            }
+          ],
+          "table": "projetos",
+          "returning": "id",
+          "query": "insert into \"projetos\" (\"ativo\", \"criado-em\", \"criado-por\", \"descricao-projeto\", \"empresa\", \"nome-projeto\", \"responsavel\", \"times\") values (?, ?, ?, ?, ?, ?, ?, ?) returning \"id\"",
+          "params": [
+            {
+              "name": ":P1",
+              "type": "expression",
+              "value": "{{$_POST.nomeprojeto}}",
+              "test": ""
+            },
+            {
+              "name": ":P2",
+              "type": "expression",
+              "value": "{{$_POST.descricaoprojeto}}",
+              "test": ""
+            },
+            {
+              "name": ":P3",
+              "type": "expression",
+              "value": "{{$_POST.times}}",
+              "test": ""
+            },
+            {
+              "name": ":P4",
+              "type": "expression",
+              "value": "{{$_POST.empresa}}",
+              "test": ""
+            },
+            {
+              "name": ":P5",
+              "type": "expression",
+              "value": "{{$_POST.responsavel}}",
+              "test": ""
+            },
+            {
+              "name": ":P6",
+              "type": "expression",
+              "value": "{{NOW_UTC}}",
+              "test": ""
+            },
+            {
+              "name": ":P7",
+              "type": "expression",
+              "value": "{{$_POST.criadopor}}",
+              "test": ""
+            }
+          ]
+        }
+      },
+      "meta": [
+        {
+          "name": "identity",
+          "type": "text"
+        },
+        {
+          "name": "affected",
+          "type": "number"
+        }
+      ]
+    }
+  }
+}

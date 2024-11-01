@@ -1,0 +1,175 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "number",
+        "name": "idtarefaedit"
+      }
+    ],
+    "$_POST": [
+      {
+        "type": "number",
+        "name": "statusedit"
+      },
+      {
+        "type": "number",
+        "name": "responsaveledit"
+      },
+      {
+        "type": "text",
+        "name": "textostatusedit"
+      },
+      {
+        "type": "text",
+        "name": "titulotarefaedit"
+      },
+      {
+        "type": "text",
+        "name": "descricaotarefaedit"
+      },
+      {
+        "type": "date",
+        "name": "datainiciotarefaedit"
+      },
+      {
+        "type": "date",
+        "name": "datafimtarefaedit"
+      }
+    ]
+  },
+  "exec": {
+    "steps": {
+      "name": "updateTarefa",
+      "module": "dbupdater",
+      "action": "update",
+      "options": {
+        "connection": "db",
+        "sql": {
+          "type": "update",
+          "values": [
+            {
+              "table": "tarefas",
+              "column": "titulo",
+              "type": "text",
+              "value": "{{$_POST.titulotarefaedit}}"
+            },
+            {
+              "table": "tarefas",
+              "column": "descricao-tarefa",
+              "type": "text",
+              "value": "{{$_POST.descricaotarefaedit}}"
+            },
+            {
+              "table": "tarefas",
+              "column": "status",
+              "type": "number",
+              "value": "{{$_POST.statusedit}}"
+            },
+            {
+              "table": "tarefas",
+              "column": "data-inicio",
+              "type": "date",
+              "value": "{{$_POST.datainiciotarefaedit}}"
+            },
+            {
+              "table": "tarefas",
+              "column": "data-fim",
+              "type": "date",
+              "value": "{{$_POST.datafimtarefaedit}}"
+            },
+            {
+              "table": "tarefas",
+              "column": "responsavel",
+              "type": "number",
+              "value": "{{$_POST.responsaveledit}}"
+            },
+            {
+              "table": "tarefas",
+              "column": "tarefa-status",
+              "type": "text",
+              "value": "{{$_POST.textostatusedit}}"
+            }
+          ],
+          "table": "tarefas",
+          "wheres": {
+            "condition": "AND",
+            "rules": [
+              {
+                "id": "id",
+                "field": "id",
+                "type": "double",
+                "operator": "equal",
+                "value": "{{$_GET.idtarefaedit}}",
+                "data": {
+                  "column": "id"
+                },
+                "operation": "="
+              }
+            ],
+            "conditional": null,
+            "valid": true
+          },
+          "returning": "id",
+          "query": "update \"tarefas\" set \"titulo\" = ?, \"descricao-tarefa\" = ?, \"status\" = ?, \"data-inicio\" = ?, \"data-fim\" = ?, \"responsavel\" = ?, \"tarefa-status\" = ? where \"id\" = ? returning \"id\"",
+          "params": [
+            {
+              "name": ":P1",
+              "type": "expression",
+              "value": "{{$_POST.titulotarefaedit}}",
+              "test": ""
+            },
+            {
+              "name": ":P2",
+              "type": "expression",
+              "value": "{{$_POST.descricaotarefaedit}}",
+              "test": ""
+            },
+            {
+              "name": ":P3",
+              "type": "expression",
+              "value": "{{$_POST.statusedit}}",
+              "test": ""
+            },
+            {
+              "name": ":P4",
+              "type": "expression",
+              "value": "{{$_POST.datainiciotarefaedit}}",
+              "test": ""
+            },
+            {
+              "name": ":P5",
+              "type": "expression",
+              "value": "{{$_POST.datafimtarefaedit}}",
+              "test": ""
+            },
+            {
+              "name": ":P6",
+              "type": "expression",
+              "value": "{{$_POST.responsaveledit}}",
+              "test": ""
+            },
+            {
+              "name": ":P7",
+              "type": "expression",
+              "value": "{{$_POST.textostatusedit}}",
+              "test": ""
+            },
+            {
+              "operator": "equal",
+              "type": "expression",
+              "name": ":P8",
+              "value": "{{$_GET.idtarefaedit}}",
+              "test": ""
+            }
+          ]
+        }
+      },
+      "meta": [
+        {
+          "name": "affected",
+          "type": "number"
+        }
+      ]
+    }
+  }
+}

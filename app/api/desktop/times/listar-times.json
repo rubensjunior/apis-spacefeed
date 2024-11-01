@@ -1,0 +1,146 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "text",
+        "name": "sort"
+      },
+      {
+        "type": "text",
+        "name": "dir"
+      },
+      {
+        "type": "number",
+        "name": "empresa"
+      }
+    ]
+  },
+  "exec": {
+    "steps": {
+      "name": "queryTimes",
+      "module": "dbconnector",
+      "action": "select",
+      "options": {
+        "connection": "db",
+        "sql": {
+          "type": "select",
+          "columns": [
+            {
+              "table": "times",
+              "column": "*"
+            }
+          ],
+          "params": [
+            {
+              "operator": "equal",
+              "type": "expression",
+              "name": ":P1",
+              "value": "{{$_GET.empresa}}",
+              "test": ""
+            }
+          ],
+          "table": {
+            "name": "times"
+          },
+          "primary": "id",
+          "joins": [],
+          "wheres": {
+            "condition": "AND",
+            "rules": [
+              {
+                "id": "times.empresa",
+                "field": "times.empresa",
+                "type": "double",
+                "operator": "equal",
+                "value": "{{$_GET.empresa}}",
+                "data": {
+                  "table": "times",
+                  "column": "empresa",
+                  "type": "number",
+                  "columnObj": {
+                    "type": "reference",
+                    "primary": false,
+                    "unique": false,
+                    "nullable": true,
+                    "references": "id",
+                    "inTable": "empresa",
+                    "referenceType": "integer",
+                    "onUpdate": "CASCADE",
+                    "onDelete": "CASCADE",
+                    "name": "empresa"
+                  }
+                },
+                "operation": "="
+              },
+              {
+                "id": "times.ativo",
+                "field": "times.ativo",
+                "type": "double",
+                "operator": "equal",
+                "value": 1,
+                "data": {
+                  "table": "times",
+                  "column": "ativo",
+                  "type": "number",
+                  "columnObj": {
+                    "type": "integer",
+                    "primary": false,
+                    "unique": false,
+                    "nullable": true,
+                    "name": "ativo"
+                  }
+                },
+                "operation": "="
+              }
+            ],
+            "conditional": null,
+            "valid": true
+          },
+          "query": "select * from \"times\" where \"times\".\"empresa\" = ? and \"times\".\"ativo\" = ? order by \"id\" ASC, \"nome\" ASC",
+          "orders": [
+            {
+              "table": "times",
+              "column": "id",
+              "direction": "ASC",
+              "recid": 1
+            },
+            {
+              "table": "times",
+              "column": "nome",
+              "direction": "ASC",
+              "recid": 2
+            }
+          ]
+        }
+      },
+      "output": true,
+      "meta": [
+        {
+          "type": "number",
+          "name": "id"
+        },
+        {
+          "type": "text",
+          "name": "nome"
+        },
+        {
+          "type": "number",
+          "name": "empresa"
+        },
+        {
+          "type": "number",
+          "name": "ativo"
+        },
+        {
+          "type": "datetime",
+          "name": "criado-em"
+        },
+        {
+          "type": "number",
+          "name": "criado-por"
+        }
+      ],
+      "outputType": "array"
+    }
+  }
+}

@@ -1,0 +1,190 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "number",
+        "name": "times"
+      },
+      {
+        "type": "text",
+        "name": "sort"
+      },
+      {
+        "type": "text",
+        "name": "dir"
+      }
+    ]
+  },
+  "exec": {
+    "steps": {
+      "name": "queryListarMembrosTime",
+      "module": "dbconnector",
+      "action": "select",
+      "options": {
+        "connection": "db",
+        "sql": {
+          "type": "select",
+          "columns": [
+            {
+              "table": "membros",
+              "column": "id"
+            },
+            {
+              "table": "membros",
+              "column": "times"
+            },
+            {
+              "table": "membros",
+              "column": "membro"
+            },
+            {
+              "table": "membros",
+              "column": "empresa"
+            },
+            {
+              "table": "membros",
+              "column": "ativo"
+            },
+            {
+              "table": "usuarios",
+              "column": "nome"
+            }
+          ],
+          "params": [
+            {
+              "operator": "equal",
+              "type": "expression",
+              "name": ":P1",
+              "value": "{{$_GET.times}}",
+              "test": ""
+            }
+          ],
+          "table": {
+            "name": "membros"
+          },
+          "primary": "id",
+          "joins": [
+            {
+              "table": "usuarios",
+              "column": "*",
+              "type": "LEFT",
+              "clauses": {
+                "condition": "AND",
+                "rules": [
+                  {
+                    "table": "usuarios",
+                    "column": "id",
+                    "operator": "equal",
+                    "operation": "=",
+                    "value": {
+                      "table": "membros",
+                      "column": "membro"
+                    }
+                  }
+                ]
+              },
+              "primary": "id"
+            }
+          ],
+          "wheres": {
+            "condition": "AND",
+            "rules": [
+              {
+                "id": "membros.times",
+                "field": "membros.times",
+                "type": "double",
+                "operator": "equal",
+                "value": "{{$_GET.times}}",
+                "data": {
+                  "table": "membros",
+                  "column": "times",
+                  "type": "number",
+                  "columnObj": {
+                    "type": "reference",
+                    "primary": false,
+                    "unique": false,
+                    "nullable": true,
+                    "references": "id",
+                    "inTable": "times",
+                    "referenceType": "integer",
+                    "onUpdate": "CASCADE",
+                    "onDelete": "CASCADE",
+                    "name": "times"
+                  }
+                },
+                "operation": "=",
+                "table": "membros"
+              },
+              {
+                "id": "membros.ativo",
+                "field": "membros.ativo",
+                "type": "double",
+                "operator": "equal",
+                "value": 1,
+                "data": {
+                  "table": "membros",
+                  "column": "ativo",
+                  "type": "number",
+                  "columnObj": {
+                    "type": "integer",
+                    "primary": false,
+                    "unique": false,
+                    "nullable": true,
+                    "name": "ativo"
+                  }
+                },
+                "operation": "=",
+                "table": "membros"
+              }
+            ],
+            "conditional": null,
+            "valid": true
+          },
+          "query": "select \"membros\".\"id\", \"membros\".\"times\", \"membros\".\"membro\", \"membros\".\"empresa\", \"membros\".\"ativo\", \"usuarios\".\"nome\" from \"membros\" left join \"usuarios\" on \"usuarios\".\"id\" = \"membros\".\"membro\" where \"membros\".\"times\" = ? and \"membros\".\"ativo\" = ? order by \"membros\".\"id\" ASC, \"membros\".\"membro\" ASC",
+          "orders": [
+            {
+              "table": "membros",
+              "column": "id",
+              "direction": "ASC",
+              "recid": 1
+            },
+            {
+              "table": "membros",
+              "column": "membro",
+              "direction": "ASC",
+              "recid": 2
+            }
+          ]
+        }
+      },
+      "output": true,
+      "meta": [
+        {
+          "type": "number",
+          "name": "id"
+        },
+        {
+          "type": "number",
+          "name": "times"
+        },
+        {
+          "type": "number",
+          "name": "membro"
+        },
+        {
+          "type": "number",
+          "name": "empresa"
+        },
+        {
+          "type": "number",
+          "name": "ativo"
+        },
+        {
+          "type": "text",
+          "name": "nome"
+        }
+      ],
+      "outputType": "array"
+    }
+  }
+}

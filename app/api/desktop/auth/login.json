@@ -1,0 +1,46 @@
+{
+  "meta": {
+    "$_POST": [
+      {
+        "type": "text",
+        "options": {
+          "rules": {
+            "core:required": {
+              "message": "Este é um campo obrigatório."
+            },
+            "core:email": {
+              "message": "Insira um e-mail válido."
+            }
+          }
+        },
+        "name": "email"
+      },
+      {
+        "type": "text",
+        "options": {
+          "rules": {
+            "core:required": {
+              "message": "Este é um campo obrigatório."
+            }
+          }
+        },
+        "name": "senha"
+      }
+    ]
+  },
+  "exec": {
+    "steps": {
+      "name": "identity",
+      "module": "auth",
+      "action": "login",
+      "options": {
+        "provider": "auth",
+        "username": "{{$_POST.email}}",
+        "password": "{{$_POST.senha}}",
+        "remember": 1
+      },
+      "output": true,
+      "meta": []
+    }
+  }
+}

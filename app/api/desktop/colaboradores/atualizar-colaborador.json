@@ -1,0 +1,253 @@
+{
+  "meta": {
+    "$_POST": [
+      {
+        "type": "text",
+        "name": "editnomecolaborador"
+      },
+      {
+        "type": "text",
+        "name": "editemailcolaborador"
+      },
+      {
+        "type": "number",
+        "name": "editacademicocheck"
+      },
+      {
+        "type": "number",
+        "name": "editatendimentocheck"
+      },
+      {
+        "type": "number",
+        "name": "editcomercialcheck"
+      },
+      {
+        "type": "number",
+        "name": "editdiretoriacheck"
+      },
+      {
+        "type": "number",
+        "name": "editfinanceirocheck"
+      },
+      {
+        "type": "number",
+        "name": "editmktcheck"
+      },
+      {
+        "type": "number",
+        "name": "editticheck"
+      },
+      {
+        "type": "number",
+        "name": "editadministrativo"
+      },
+      {
+        "type": "number",
+        "name": "id"
+      },
+      {
+        "type": "number",
+        "name": "editadmcheck"
+      },
+      {
+        "type": "number",
+        "name": "editativocheck"
+      }
+    ]
+  },
+  "exec": {
+    "steps": {
+      "name": "updateColaborador",
+      "module": "dbupdater",
+      "action": "update",
+      "options": {
+        "connection": "db",
+        "sql": {
+          "type": "update",
+          "values": [
+            {
+              "table": "usuarios",
+              "column": "nome",
+              "type": "text",
+              "value": "{{$_POST.editnomecolaborador}}"
+            },
+            {
+              "table": "usuarios",
+              "column": "email",
+              "type": "text",
+              "value": "{{$_POST.editemailcolaborador}}"
+            },
+            {
+              "table": "usuarios",
+              "column": "isAdmin",
+              "type": "number",
+              "value": "{{$_POST.editadmcheck}}"
+            },
+            {
+              "table": "usuarios",
+              "column": "isAtivo",
+              "type": "number",
+              "value": "{{$_POST.editativocheck}}"
+            },
+            {
+              "table": "usuarios",
+              "column": "academico",
+              "type": "number",
+              "value": "{{$_POST.editacademicocheck}}"
+            },
+            {
+              "table": "usuarios",
+              "column": "administrativo",
+              "type": "number",
+              "value": "{{$_POST.editadministrativo}}"
+            },
+            {
+              "table": "usuarios",
+              "column": "comercial",
+              "type": "number",
+              "value": "{{$_POST.editcomercialcheck}}"
+            },
+            {
+              "table": "usuarios",
+              "column": "diretoria",
+              "type": "number",
+              "value": "{{$_POST.editdiretoriacheck}}"
+            },
+            {
+              "table": "usuarios",
+              "column": "financeiro",
+              "type": "number",
+              "value": "{{$_POST.editfinanceirocheck}}"
+            },
+            {
+              "table": "usuarios",
+              "column": "marketing",
+              "type": "number",
+              "value": "{{$_POST.editmktcheck}}"
+            },
+            {
+              "table": "usuarios",
+              "column": "atendimento",
+              "type": "number",
+              "value": "{{$_POST.editatendimentocheck}}"
+            },
+            {
+              "table": "usuarios",
+              "column": "ti",
+              "type": "number",
+              "value": "{{$_POST.editticheck}}"
+            }
+          ],
+          "table": "usuarios",
+          "wheres": {
+            "condition": "AND",
+            "rules": [
+              {
+                "id": "id",
+                "field": "id",
+                "type": "double",
+                "operator": "equal",
+                "value": "{{$_POST.id}}",
+                "data": {
+                  "column": "id"
+                },
+                "operation": "="
+              }
+            ],
+            "conditional": null,
+            "valid": true
+          },
+          "returning": "id",
+          "query": "update \"usuarios\" set \"nome\" = ?, \"email\" = ?, \"isAdmin\" = ?, \"isAtivo\" = ?, \"academico\" = ?, \"administrativo\" = ?, \"comercial\" = ?, \"diretoria\" = ?, \"financeiro\" = ?, \"marketing\" = ?, \"atendimento\" = ?, \"ti\" = ? where \"id\" = ? returning \"id\"",
+          "params": [
+            {
+              "name": ":P1",
+              "type": "expression",
+              "value": "{{$_POST.editnomecolaborador}}",
+              "test": ""
+            },
+            {
+              "name": ":P2",
+              "type": "expression",
+              "value": "{{$_POST.editemailcolaborador}}",
+              "test": ""
+            },
+            {
+              "name": ":P3",
+              "type": "expression",
+              "value": "{{$_POST.editadmcheck}}",
+              "test": ""
+            },
+            {
+              "name": ":P4",
+              "type": "expression",
+              "value": "{{$_POST.editativocheck}}",
+              "test": ""
+            },
+            {
+              "name": ":P5",
+              "type": "expression",
+              "value": "{{$_POST.editacademicocheck}}",
+              "test": ""
+            },
+            {
+              "name": ":P6",
+              "type": "expression",
+              "value": "{{$_POST.editadministrativo}}",
+              "test": ""
+            },
+            {
+              "name": ":P7",
+              "type": "expression",
+              "value": "{{$_POST.editcomercialcheck}}",
+              "test": ""
+            },
+            {
+              "name": ":P8",
+              "type": "expression",
+              "value": "{{$_POST.editdiretoriacheck}}",
+              "test": ""
+            },
+            {
+              "name": ":P9",
+              "type": "expression",
+              "value": "{{$_POST.editfinanceirocheck}}",
+              "test": ""
+            },
+            {
+              "name": ":P10",
+              "type": "expression",
+              "value": "{{$_POST.editmktcheck}}",
+              "test": ""
+            },
+            {
+              "name": ":P11",
+              "type": "expression",
+              "value": "{{$_POST.editatendimentocheck}}",
+              "test": ""
+            },
+            {
+              "name": ":P12",
+              "type": "expression",
+              "value": "{{$_POST.editticheck}}",
+              "test": ""
+            },
+            {
+              "operator": "equal",
+              "type": "expression",
+              "name": ":P13",
+              "value": "{{$_POST.id}}",
+              "test": ""
+            }
+          ]
+        }
+      },
+      "meta": [
+        {
+          "name": "affected",
+          "type": "number"
+        }
+      ]
+    }
+  }
+}

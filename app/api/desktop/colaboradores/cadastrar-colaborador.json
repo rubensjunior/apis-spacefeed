@@ -1,0 +1,324 @@
+{
+  "meta": {
+    "$_POST": [
+      {
+        "type": "text",
+        "options": {
+          "rules": {
+            "core:required": {
+              "message": "Este é um campo obriatório."
+            }
+          }
+        },
+        "name": "nomecolaborador"
+      },
+      {
+        "type": "text",
+        "options": {
+          "rules": {
+            "core:required": {
+              "message": "Este é um campo obriatório."
+            },
+            "core:email": {
+              "message": "Insira um e-mail válido."
+            }
+          }
+        },
+        "name": "emailcolaborador"
+      },
+      {
+        "type": "number",
+        "name": "academicocheck"
+      },
+      {
+        "type": "number",
+        "name": "admincheck"
+      },
+      {
+        "type": "number",
+        "name": "atendimentocheck"
+      },
+      {
+        "type": "number",
+        "name": "comercialcheck"
+      },
+      {
+        "type": "number",
+        "name": "diretoriacheck"
+      },
+      {
+        "type": "number",
+        "name": "financeirocheck"
+      },
+      {
+        "type": "number",
+        "name": "mktcheck"
+      },
+      {
+        "type": "number",
+        "name": "ticheck"
+      },
+      {
+        "type": "number",
+        "name": "empresa"
+      },
+      {
+        "type": "number",
+        "name": "admcheck"
+      },
+      {
+        "type": "number",
+        "name": "ti"
+      },
+      {
+        "type": "number",
+        "name": "criadopor"
+      }
+    ]
+  },
+  "exec": {
+    "steps": [
+      {
+        "name": "validate",
+        "module": "validator",
+        "action": "validate",
+        "options": {
+          "data": [
+            {
+              "name": "validate_1",
+              "value": "{{$_POST.emailcolaborador}}",
+              "rules": {
+                "db:notexists": {
+                  "param": {
+                    "connection": "db",
+                    "table": "usuarios",
+                    "column": "email"
+                  },
+                  "message": "E-mail já cadastrado."
+                }
+              },
+              "fieldName": "emailcolaborador"
+            }
+          ]
+        }
+      },
+      {
+        "name": "insertColaborador",
+        "module": "dbupdater",
+        "action": "insert",
+        "options": {
+          "connection": "db",
+          "sql": {
+            "type": "insert",
+            "values": [
+              {
+                "table": "usuarios",
+                "column": "nome",
+                "type": "text",
+                "value": "{{$_POST.nomecolaborador}}"
+              },
+              {
+                "table": "usuarios",
+                "column": "email",
+                "type": "text",
+                "value": "{{$_POST.emailcolaborador}}"
+              },
+              {
+                "table": "usuarios",
+                "column": "isAdmin",
+                "type": "number",
+                "value": "{{$_POST.admcheck}}",
+                "condition": "2"
+              },
+              {
+                "table": "usuarios",
+                "column": "isColaborador",
+                "type": "number",
+                "value": "1"
+              },
+              {
+                "table": "usuarios",
+                "column": "empresa",
+                "type": "number",
+                "value": "{{$_POST.empresa}}"
+              },
+              {
+                "table": "usuarios",
+                "column": "isAtivo",
+                "type": "number",
+                "value": "1"
+              },
+              {
+                "table": "usuarios",
+                "column": "academico",
+                "type": "number",
+                "value": "{{$_POST.academicocheck}}",
+                "condition": "2"
+              },
+              {
+                "table": "usuarios",
+                "column": "administrativo",
+                "type": "number",
+                "value": "{{$_POST.admincheck}}",
+                "condition": "2"
+              },
+              {
+                "table": "usuarios",
+                "column": "comercial",
+                "type": "number",
+                "value": "{{$_POST.comercialcheck}}",
+                "condition": "2"
+              },
+              {
+                "table": "usuarios",
+                "column": "diretoria",
+                "type": "number",
+                "value": "{{$_POST.diretoriacheck}}",
+                "condition": "2"
+              },
+              {
+                "table": "usuarios",
+                "column": "financeiro",
+                "type": "number",
+                "value": "{{$_POST.financeirocheck}}",
+                "condition": "2"
+              },
+              {
+                "table": "usuarios",
+                "column": "marketing",
+                "type": "number",
+                "value": "{{$_POST.mktcheck}}",
+                "condition": "2"
+              },
+              {
+                "table": "usuarios",
+                "column": "atendimento",
+                "type": "number",
+                "value": "{{$_POST.atendimentocheck}}",
+                "condition": "2"
+              },
+              {
+                "table": "usuarios",
+                "column": "ti",
+                "type": "number",
+                "value": "{{$_POST.ticheck}}",
+                "condition": "2"
+              },
+              {
+                "table": "usuarios",
+                "column": "criado-em",
+                "type": "datetime",
+                "value": "{{NOW_UTC}}"
+              },
+              {
+                "table": "usuarios",
+                "column": "criado-por",
+                "type": "number",
+                "value": "{{$_POST.criadopor}}"
+              }
+            ],
+            "table": "usuarios",
+            "returning": "id",
+            "query": "insert into \"usuarios\" (\"academico\", \"administrativo\", \"atendimento\", \"comercial\", \"criado-em\", \"criado-por\", \"diretoria\", \"email\", \"empresa\", \"financeiro\", \"isAdmin\", \"isAtivo\", \"isColaborador\", \"marketing\", \"nome\", \"ti\") values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) returning \"id\"",
+            "params": [
+              {
+                "name": ":P1",
+                "type": "expression",
+                "value": "{{$_POST.nomecolaborador}}",
+                "test": ""
+              },
+              {
+                "name": ":P2",
+                "type": "expression",
+                "value": "{{$_POST.emailcolaborador}}",
+                "test": ""
+              },
+              {
+                "name": ":P3",
+                "type": "expression",
+                "value": "{{$_POST.admcheck}}",
+                "test": ""
+              },
+              {
+                "name": ":P4",
+                "type": "expression",
+                "value": "{{$_POST.empresa}}",
+                "test": ""
+              },
+              {
+                "name": ":P5",
+                "type": "expression",
+                "value": "{{$_POST.academicocheck}}",
+                "test": ""
+              },
+              {
+                "name": ":P6",
+                "type": "expression",
+                "value": "{{$_POST.admincheck}}",
+                "test": ""
+              },
+              {
+                "name": ":P7",
+                "type": "expression",
+                "value": "{{$_POST.comercialcheck}}",
+                "test": ""
+              },
+              {
+                "name": ":P8",
+                "type": "expression",
+                "value": "{{$_POST.diretoriacheck}}",
+                "test": ""
+              },
+              {
+                "name": ":P9",
+                "type": "expression",
+                "value": "{{$_POST.financeirocheck}}",
+                "test": ""
+              },
+              {
+                "name": ":P10",
+                "type": "expression",
+                "value": "{{$_POST.mktcheck}}",
+                "test": ""
+              },
+              {
+                "name": ":P11",
+                "type": "expression",
+                "value": "{{$_POST.atendimentocheck}}",
+                "test": ""
+              },
+              {
+                "name": ":P12",
+                "type": "expression",
+                "value": "{{$_POST.ticheck}}",
+                "test": ""
+              },
+              {
+                "name": ":P13",
+                "type": "expression",
+                "value": "{{NOW_UTC}}",
+                "test": ""
+              },
+              {
+                "name": ":P14",
+                "type": "expression",
+                "value": "{{$_POST.criadopor}}",
+                "test": ""
+              }
+            ]
+          }
+        },
+        "meta": [
+          {
+            "name": "identity",
+            "type": "text"
+          },
+          {
+            "name": "affected",
+            "type": "number"
+          }
+        ]
+      }
+    ]
+  }
+}

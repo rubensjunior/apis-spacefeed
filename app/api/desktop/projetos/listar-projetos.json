@@ -1,0 +1,190 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "number",
+        "name": "empresa"
+      },
+      {
+        "type": "text",
+        "name": "sort"
+      },
+      {
+        "type": "text",
+        "name": "dir"
+      }
+    ]
+  },
+  "exec": {
+    "steps": {
+      "name": "queryListarProjetos",
+      "module": "dbconnector",
+      "action": "select",
+      "options": {
+        "connection": "db",
+        "sql": {
+          "type": "select",
+          "columns": [
+            {
+              "table": "projetos",
+              "column": "*"
+            },
+            {
+              "table": "times",
+              "column": "nome"
+            }
+          ],
+          "params": [
+            {
+              "operator": "equal",
+              "type": "expression",
+              "name": ":P1",
+              "value": "{{$_GET.empresa}}",
+              "test": ""
+            }
+          ],
+          "table": {
+            "name": "projetos"
+          },
+          "primary": "id",
+          "joins": [
+            {
+              "table": "times",
+              "column": "*",
+              "type": "INNER",
+              "clauses": {
+                "condition": "AND",
+                "rules": [
+                  {
+                    "table": "times",
+                    "column": "id",
+                    "operation": "=",
+                    "operator": "equal",
+                    "value": {
+                      "table": "projetos",
+                      "column": "times",
+                      "type": "number"
+                    }
+                  }
+                ]
+              },
+              "primary": "id"
+            }
+          ],
+          "wheres": {
+            "condition": "AND",
+            "rules": [
+              {
+                "id": "projetos.empresa",
+                "field": "projetos.empresa",
+                "type": "double",
+                "operator": "equal",
+                "value": "{{$_GET.empresa}}",
+                "data": {
+                  "table": "projetos",
+                  "column": "empresa",
+                  "type": "number",
+                  "columnObj": {
+                    "type": "reference",
+                    "primary": false,
+                    "unique": false,
+                    "nullable": true,
+                    "references": "id",
+                    "inTable": "empresa",
+                    "referenceType": "integer",
+                    "onUpdate": "CASCADE",
+                    "onDelete": "CASCADE",
+                    "name": "empresa"
+                  }
+                },
+                "operation": "="
+              },
+              {
+                "id": "projetos.ativo",
+                "field": "projetos.ativo",
+                "type": "double",
+                "operator": "equal",
+                "value": 1,
+                "data": {
+                  "table": "projetos",
+                  "column": "ativo",
+                  "type": "number",
+                  "columnObj": {
+                    "type": "integer",
+                    "primary": false,
+                    "unique": false,
+                    "nullable": true,
+                    "name": "ativo"
+                  }
+                },
+                "operation": "="
+              }
+            ],
+            "conditional": null,
+            "valid": true
+          },
+          "query": "select \"projetos\".*, \"times\".\"nome\" from \"projetos\" inner join \"times\" on \"times\".\"id\" = \"projetos\".\"times\" where \"projetos\".\"empresa\" = ? and \"projetos\".\"ativo\" = ? order by \"projetos\".\"id\" ASC, \"projetos\".\"nome-projeto\" ASC",
+          "orders": [
+            {
+              "table": "projetos",
+              "column": "id",
+              "direction": "ASC",
+              "recid": 1
+            },
+            {
+              "table": "projetos",
+              "column": "nome-projeto",
+              "direction": "ASC",
+              "recid": 2
+            }
+          ]
+        }
+      },
+      "output": true,
+      "meta": [
+        {
+          "type": "number",
+          "name": "id"
+        },
+        {
+          "type": "text",
+          "name": "nome-projeto"
+        },
+        {
+          "type": "text",
+          "name": "descricao-projeto"
+        },
+        {
+          "type": "number",
+          "name": "times"
+        },
+        {
+          "type": "number",
+          "name": "empresa"
+        },
+        {
+          "type": "number",
+          "name": "responsavel"
+        },
+        {
+          "type": "datetime",
+          "name": "criado-em"
+        },
+        {
+          "type": "number",
+          "name": "criado-por"
+        },
+        {
+          "type": "number",
+          "name": "ativo"
+        },
+        {
+          "type": "text",
+          "name": "nome"
+        }
+      ],
+      "outputType": "array",
+      "type": "dbconnector_select"
+    }
+  }
+}
