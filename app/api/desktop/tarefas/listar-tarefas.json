@@ -1,0 +1,136 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "number",
+        "name": "idprojeto"
+      },
+      {
+        "type": "text",
+        "name": "sort"
+      },
+      {
+        "type": "text",
+        "name": "dir"
+      }
+    ]
+  },
+  "exec": {
+    "steps": {
+      "name": "queryTarefas",
+      "module": "dbconnector",
+      "action": "select",
+      "options": {
+        "connection": "db",
+        "sql": {
+          "type": "select",
+          "columns": [
+            {
+              "table": "tarefas",
+              "column": "*"
+            }
+          ],
+          "params": [
+            {
+              "operator": "equal",
+              "type": "expression",
+              "name": ":P1",
+              "value": "{{$_GET.idprojeto}}",
+              "test": ""
+            }
+          ],
+          "table": {
+            "name": "tarefas"
+          },
+          "primary": "id",
+          "joins": [],
+          "wheres": {
+            "condition": "AND",
+            "rules": [
+              {
+                "id": "tarefas.projeto",
+                "field": "tarefas.projeto",
+                "type": "double",
+                "operator": "equal",
+                "value": "{{$_GET.idprojeto}}",
+                "data": {
+                  "table": "tarefas",
+                  "column": "projeto",
+                  "type": "number",
+                  "columnObj": {
+                    "type": "reference",
+                    "primary": false,
+                    "unique": false,
+                    "nullable": true,
+                    "references": "id",
+                    "inTable": "projetos",
+                    "referenceType": "integer",
+                    "onUpdate": "CASCADE",
+                    "onDelete": "CASCADE",
+                    "name": "projeto"
+                  }
+                },
+                "operation": "="
+              }
+            ],
+            "conditional": null,
+            "valid": true
+          },
+          "query": "select * from \"tarefas\" where \"tarefas\".\"projeto\" = ?"
+        }
+      },
+      "output": true,
+      "meta": [
+        {
+          "type": "number",
+          "name": "id"
+        },
+        {
+          "type": "datetime",
+          "name": "criado-em"
+        },
+        {
+          "type": "text",
+          "name": "titulo"
+        },
+        {
+          "type": "number",
+          "name": "criado-por"
+        },
+        {
+          "type": "text",
+          "name": "descricao-tarefa"
+        },
+        {
+          "type": "number",
+          "name": "status"
+        },
+        {
+          "type": "date",
+          "name": "data-inicio"
+        },
+        {
+          "type": "date",
+          "name": "data-fim"
+        },
+        {
+          "type": "number",
+          "name": "projeto"
+        },
+        {
+          "type": "number",
+          "name": "empresa"
+        },
+        {
+          "type": "number",
+          "name": "responsavel"
+        },
+        {
+          "type": "text",
+          "name": "tarefa-status"
+        }
+      ],
+      "outputType": "array"
+    }
+  }
+}

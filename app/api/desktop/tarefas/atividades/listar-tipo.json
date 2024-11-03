@@ -13,7 +13,7 @@
   },
   "exec": {
     "steps": {
-      "name": "queryStatus",
+      "name": "queryTipo",
       "module": "dbconnector",
       "action": "select",
       "options": {
@@ -22,32 +22,17 @@
           "type": "select",
           "columns": [
             {
-              "table": "status",
+              "table": "atividades-tipos",
               "column": "*"
-            },
-            {
-              "table": "status",
-              "column": "id"
-            },
-            {
-              "table": "status",
-              "column": "id"
             }
           ],
           "params": [],
           "table": {
-            "name": "status"
+            "name": "atividades-tipos"
           },
           "primary": "id",
           "joins": [],
-          "query": "select *, \"id\", \"id\" from \"status\" order by \"id\" ASC",
-          "orders": [
-            {
-              "table": "status",
-              "column": "id",
-              "direction": "ASC"
-            }
-          ]
+          "query": "select * from \"atividades-tipos\""
         }
       },
       "output": true,
@@ -58,7 +43,7 @@
         },
         {
           "type": "text",
-          "name": "status"
+          "name": "tipo"
         }
       ],
       "outputType": "array"

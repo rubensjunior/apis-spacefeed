@@ -1,0 +1,124 @@
+{
+  "meta": {
+    "$_GET": [
+      {
+        "type": "number",
+        "name": "idterafa"
+      },
+      {
+        "type": "text",
+        "name": "sort"
+      },
+      {
+        "type": "text",
+        "name": "dir"
+      }
+    ]
+  },
+  "exec": {
+    "steps": {
+      "name": "queryAtividades",
+      "module": "dbconnector",
+      "action": "select",
+      "options": {
+        "connection": "db",
+        "sql": {
+          "type": "select",
+          "columns": [
+            {
+              "table": "atividades",
+              "column": "*"
+            }
+          ],
+          "params": [
+            {
+              "operator": "equal",
+              "type": "expression",
+              "name": ":P1",
+              "value": "{{$_GET.idterafa}}",
+              "test": ""
+            }
+          ],
+          "table": {
+            "name": "atividades"
+          },
+          "primary": "id",
+          "joins": [],
+          "wheres": {
+            "condition": "AND",
+            "rules": [
+              {
+                "id": "atividades.tarefa",
+                "field": "atividades.tarefa",
+                "type": "double",
+                "operator": "equal",
+                "value": "{{$_GET.idterafa}}",
+                "data": {
+                  "table": "atividades",
+                  "column": "tarefa",
+                  "type": "number",
+                  "columnObj": {
+                    "type": "reference",
+                    "primary": false,
+                    "unique": false,
+                    "nullable": true,
+                    "references": "id",
+                    "inTable": "tarefas",
+                    "referenceType": "integer",
+                    "onUpdate": "CASCADE",
+                    "onDelete": "CASCADE",
+                    "name": "tarefa"
+                  }
+                },
+                "operation": "="
+              }
+            ],
+            "conditional": null,
+            "valid": true
+          },
+          "query": "select * from \"atividades\" where \"atividades\".\"tarefa\" = ?"
+        }
+      },
+      "output": true,
+      "meta": [
+        {
+          "type": "number",
+          "name": "id"
+        },
+        {
+          "type": "number",
+          "name": "projeto"
+        },
+        {
+          "type": "number",
+          "name": "tarefa"
+        },
+        {
+          "type": "text",
+          "name": "descricao-atividade"
+        },
+        {
+          "type": "date",
+          "name": "criadoem"
+        },
+        {
+          "type": "number",
+          "name": "criadopor"
+        },
+        {
+          "type": "number",
+          "name": "tipo"
+        },
+        {
+          "type": "text",
+          "name": "link"
+        },
+        {
+          "type": "date",
+          "name": "data-reuniao"
+        }
+      ],
+      "outputType": "array"
+    }
+  }
+}
