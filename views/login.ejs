@@ -1,0 +1,18 @@
+<!-- Wappler include head-page="layouts/main" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="login" appConnect="local" jquery_slim_35="cdn" components="{dmxBootstrap5Toasts:{},dmxNotifications:{}}" -->
+<div class="container header-top-margin py-5">
+    <div class="row">
+        <div class="col">
+            <form id="form1" is="dmx-serverconnect-form" method="post" action="/api/desktop/auth/login" credentials="true" dmx-on:error="notifies1.danger(lastError.status+lastError.message+lastError.response);form1.reset()" dmx-on:unauthorized="notifies1.warning('nao autorizado');form1.reset()" dmx-on:success="notifies1.success('Deu certo');form1.reset()">
+                <div class="form-group mb-3"> <label for="email" class="form-label">Some text</label>
+                    <input type="text" class="form-control" id="email" name="email" aria-describedby="input1_help" placeholder="Enter some text">
+                </div>
+                <div class="form-group mb-3"> <label for="senha" class="form-label">Some text</label>
+                    <input type="text" class="form-control" id="senha" name="senha" aria-describedby="input1_help" placeholder="Enter some text">
+                </div>
+                <div class="form-group mb-3"> <button id="btn1" class="btn btn-warning" type="submit">Button</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<meta name="ac:route" content="/login">

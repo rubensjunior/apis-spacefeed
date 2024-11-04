@@ -1,0 +1,42 @@
+<!-- Wappler include head-page="layouts/main" fontawesome_5="cdn" bootstrap5="local" is="dmx-app" id="criarconta" appConnect="local" components="{dmxValidator:{},dmxNotifications:{}}" -->
+<div class="container header-top-margin py-5">
+    <div class="row align-items-center">
+        <div class="text-center col-12 col-sm-6 col">
+            <h1 class="text-start mb-3">Bem-vindo ao Beta Exclusivo da Spacefeed!</h1>
+            <p class="text-h3 text-start">Você agora faz parte da nossa fase <b>Beta</b> e terá acesso completo a todas as funcionalidades da Spacefeed, sem custos, enquanto testamos e refinamos nossa plataforma.</p>
+
+            <p class="text-h3 text-start">Após o lançamento oficial, você poderá continuar utilizando o Spacefeed com um plano especial para os primeiros clientes por apenas <b>R$49,90/mês</b>. Mas não se preocupe! Vamos informá-lo com pelo menos <b>30 dias de antecedência</b> antes de qualquer cobrança.</p>
+
+            <p class="text-h3 text-start">Aproveite essa oportunidade e nos ajude a construir a melhor ferramenta de gestão para franquias EAD!</p>
+        </div>
+        <div class="col-12 col-sm-6 text-black">
+            <div class="row justify-content-center align-items-center">
+                <div class="col-md-10 p-4 rounded-4 bg-white new-shadow">
+                    <form id="registro" is="dmx-serverconnect-form" method="post" action="/api/site/cadastro" dmx-on:error="registro.reset();toasts.danger('Ocorreu um erro durante o seu processo de cadastro: '+lastError.status+lastError.message+lastError.response)" dmx-on:success="concluido.setValue(1);registro.reset()" dmx-show="concluido.value==0">
+                        <h3 class="mb-3 text-center" dmx-show="concluido.value==0">Crie sua conta</h3>
+                        <div class="form-group mb-3"> <label for="empresa" class="form-label">Empresa (nome fantasia)</label>
+                            <input type="text" class="form-control form-control-lg" id="empresa" name="empresa" aria-describedby="input1_help" required="" data-msg-required="Este é um campo obrigatório.">
+                        </div>
+                        <div class="form-group mb-3"> <label for="nome" class="form-label">Nome completo</label>
+                            <input type="text" class="form-control form-control-lg" id="nome" name="nome" aria-describedby="input1_help" required="" data-msg-required="Este é um campo obrigatório.">
+                        </div>
+                        <div class="form-group mb-3"> <label for="email" class="form-label">E-mail</label>
+                            <input type="email" class="form-control form-control-lg" id="email" name="email" aria-describedby="input1_help" required="" data-msg-required="Este é um campo obrigatório." data-rule-email="" data-msg-email="Insira um e-mail válido.">
+                        </div>
+                        <div class="form-group mb-3"> <label for="senha" class="form-label">Senha</label>
+                            <input type="password" class="form-control form-control-lg" id="senha" name="senha" aria-describedby="input1_help" required="" data-msg-required="Este é um campo obrigatório.">
+                        </div>
+                        <div class="form-group mb-3"> <button id="btn1" class="btn btn-dark w-100 py-3" type="submit">Criar minha conta</button>
+                        </div>
+                    </form>
+                    <p class="text-center" dmx-show="concluido.value==1">Parabéns! Você criou sua conta e agora pode usar o seu app.</p>
+                    <button id="btn2" class="btn w-100 py-3 btn-primary" dmx-show="content.concluido.value==1">Baixar agora<i class="far fa-arrow-alt-circle-down ms-2"></i></button>
+
+                    <p class="text-center obs" dmx-show="concluido.value==0">Ao criar uma conta, você aceita e concorda com nossos <b>Termos de uso</b> e <b>Política de privacidade</b>.</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<meta name="ac:route" content="/criar-conta">

@@ -1,12 +1,58 @@
 <!doctype html>
-<html>
+<html lang="pt-br">
+
 <head>
-<meta charset="UTF-8">
-<title>Untitled Document</title>
-<!-- New Wappler Page -->
+  <base href="/">
+  <script src="/dmxAppConnect/dmxAppConnect.js"></script>
+  <meta charset="UTF-8">
+  <title>Spacefeed</title>
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="/bootstrap/5/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <script src="/dmxAppConnect/dmxRouting/dmxRouting.js" defer></script>
+  <script src="/dmxAppConnect/dmxBootstrap5Navigation/dmxBootstrap5Navigation.js" defer></script>
+  <link rel="stylesheet" href="/dmxAppConnect/dmxAnimateCSS/animate.min.css" />
+  <link rel="stylesheet" href="/dmxAppConnect/dmxNotifications/dmxNotifications.css" />
+  <script src="/dmxAppConnect/dmxBootstrap5Toasts/dmxBootstrap5Toasts.js" defer></script>
+  <script src="/dmxAppConnect/dmxAnimateCSS/dmxAnimateCSS.js" defer></script>
+  <script src="/dmxAppConnect/dmxNotifications/dmxNotifications.js" defer></script>
 </head>
-<body>
-<div is="dmx-view" id="content">
-  <%- await include(content, locals); %>
-</div></body>
+
+<body is="dmx-app" id="main">
+
+  <header class="navbar-dark my-nav fixed-top py-1 border-bottom border-secondary-subtle">
+    <div class="container">
+
+      <div class="row align-items-center">
+        <div class="col">
+          <nav class="navbar navbar-expand-lg flex-row w-auto">
+            <a class="navbar-brand ms-auto" href="#">
+              <img src="/assets/images/spacefeed-black.png" height="32" dmx-on:click="navegacao.goto('/',true)"></a>
+            <button class="navbar-toggler w-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbar1_collapse" aria-controls="navbar1_collapse" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbar1_collapse">
+
+              <div class="navbar-nav">
+                <button id="btn1" class="btn mt-2 mb-2 py-2 btn-light" dmx-on:click="navegacao.goto('/login',true)">
+                  Download beta<i class="far fa-arrow-alt-circle-down ms-2"></i></button>
+                <button id="btn2" class="btn mt-2 mb-2 ms-4 pt-2 pb-2 btn-dark" dmx-on:click="navegacao.goto('/criar-conta',true)">Criar conta grátis</button>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </header>
+  <main class="vh-100">
+    <div is="dmx-view" id="content">
+      <%- await include(content, locals); %>
+    </div>
+  </main>
+
+  <script src="/bootstrap/5/js/bootstrap.bundle.min.js"></script>
+</body>
+
 </html>
