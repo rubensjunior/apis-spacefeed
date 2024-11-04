@@ -46,9 +46,24 @@
       "db_password": "@Baki025",
       "db_database": "rubensbe_spacefeed",
       "NodeImageType": "slim"
+    },
+    {
+      "name": "web",
+      "remoteURL": "https://spacefeed.app/",
+      "databaseConnectionType": "custom",
+      "databaseType": "postgres",
+      "db_host": "pro114.dnspro.com.br",
+      "db_port": "5432",
+      "db_user": "rubensbe_master",
+      "db_password": "@Baki025",
+      "db_database": "rubensbe_spacefeed",
+      "access": "ftp",
+      "ftpServer": "ftp@rubensbentes.com.br",
+      "ftpUser": "master@spacefeed.app",
+      "ftpPassword": "22efbdecf9cf8ba7"
     }
   ],
-  "activeTarget": "Development",
+  "activeTarget": "web",
   "projectType": "web",
   "extensions": []
 }
